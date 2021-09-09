@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="mimic">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>MIMIC</title>
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <style>
+        div.select {
+            display: inline-block;
+            margin: 0 0 1em 0;
+        }
+
+        p.small {
+            font-size: 0.7em;
+        }
+
+        label {
+            width: 12em;
+            display: inline-block;
+        }
+    </style>
+
+</head>
+
+<body>
+
+  <h1>Welcome to MIMIC</h1>
+
+  <div id="videos">
+    <video id="localVideo" autoplay muted playsinline></video>
+    <video id="remoteVideo" autoplay playsinline></video>
+  </div>
+
+  <div class="stats_box">
+    <h2>stats goes here</h2>
+  </div>
+
+  <div id="container">
+
+    <div class="select">
+      <label for="audioSource">마이크 : </label><select id="audioSource"></select>
+    </div>
+
+    <div class="select">
+      <label for="audioOutput">스피커 : </label><select id="audioOutput"></select>
+    </div>
+
+    <div class="select">
+      <label for="videoSource">비디오 : </label><select id="videoSource"></select>
+    </div>
+
+    <div>
+      <button id="record" disabled>Start Recording</button>
+      <button id="download" disabled>Download</button>
+    </div>
+
+    <div>
+      Recording format: <select id="codecPreferences" disabled></select>
+    </div>
+
+
+  </div>
+    <!-- This file is automatically added/served when running "node index.js". -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
