@@ -11,7 +11,7 @@ var turnReady;
 let mediaRecorder;
 let recordedBlobs;
 const codecPreferences = document.querySelector('#codecPreferences');
-const recordButton = document.querySelector('button#record');
+const recordButton = document.querySelector('.bg-red-500');
 const audioInputSelect = document.querySelector('select#audioSource');
 const audioOutputSelect = document.querySelector('select#audioOutput');
 const videoSelect = document.querySelector('select#videoSource');
@@ -20,17 +20,17 @@ const selectors = [audioInputSelect, audioOutputSelect, videoSelect];
 audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 
 recordButton.addEventListener('click', () => {
-  if (recordButton.textContent === 'Start Recording') {
+  if (recordButton.textContent === 'REC') {
     startRecording();
   } else {
     stopRecording();
-    recordButton.textContent = 'Start Recording';
+    recordButton.textContent = 'REC';
     downloadButton.disabled = false;
     codecPreferences.disabled = false;
   }
 });
 
-const downloadButton = document.querySelector('button#download');
+const downloadButton = document.querySelector('.bg-blue-500');
 downloadButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
   const url = window.URL.createObjectURL(blob);
@@ -248,14 +248,15 @@ function startRecording() {
   const options = {mimeType};
 
   try {
-    mediaRecorder = new MediaRecorder(remoteStream, options);
+    mediaRecorder = new MultiStreamRecorder(localStream, options);
+    mediaRecorder.addStreams(remoteStream);
   } catch (e) {
     console.error('Exception while creating MediaRecorder:', e);
     return;
   }
 
   console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
-  recordButton.textContent = 'Stop Recording';
+  recordButton.textContent = 'STOP';
   downloadButton.disabled = true;
   codecPreferences.disabled = true;
   mediaRecorder.onstop = (event) => {
@@ -317,6 +318,7 @@ audioOutputSelect.onchange = changeAudioDestination();
 videoSelect.onchange = start();
 
 //hook custom here
+
 window.setInterval(function() {
   pc.getStats(null).then(stats => {
     let statsOutput = "";

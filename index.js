@@ -4,21 +4,46 @@ var os = require('os');
 var nodeStatic = require('node-static');
 //var http = require('http');
 var socketIO = require('socket.io');
+var url = require('url');
+var express = require('express');
+
+var exp_app = express()
+
 
 const https = require('https');
 const fs = require('fs');
+const request = require('request');
 
 const options = {
   key: fs.readFileSync('./private.pem'),
   cert: fs.readFileSync('./public.pem')
 };
 
+
+
+exp_app.get('/', function(req, res) {
+    fs.readFile('index.html', function (error, data) {
+        fs.writehead(200, {'Content-Type': 'text/html'});
+        console.log('express got index');
+        res.end(data);
+    });
+});
+exp_app.get('/home.html', function(req, res) {
+    fs.readFile('home.html', function(error, data) {
+        res.writehead(200, {'Content-Type': 'text/html'});
+        console.log('express got home');
+        res.end(data);
+    });
+});
+
 var fileServer = new(nodeStatic.Server)();
+
 let app = https.createServer(options, (req,res)=>{
-  fileServer.serve(req, res);
+    fileServer.serve(req, res);
 }).listen(3012);
 
-console.log('Started chating server...');
+
+console.log('Started chatting server...');
 
 var io = socketIO.listen(app);
 io.sockets.on('connection', function(socket) {
