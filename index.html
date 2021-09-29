@@ -4,25 +4,33 @@
   <meta charset="utf-8">
   <meta name="description" content="mimic">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="/css/index.css" />
-
+  <link rel="stylesheet" href="css/index.css"/>
   <title>MIMIC</title>
   <style>
-    button {
-
-      background: transparent;
-      border: none !important;
-      font-size:0;
-    }
-
-
   </style>
-</head>head>
-<body>
+</head>
 
-<div>
-  <input type="button" value="page move" onclick="movepage()"/>
-</div>
+<body>
+  <div class="Navbar">
+    <img src ="images/Frame.png" class="Mascot"/>
+    <img src="images/Mimic.png" class="Logo"/>
+    <img src="images/findClub.png" class="FC"/>
+    <img src="images/findFriend.png" class="FF"/>
+  </div>
+
+  <div class="left-side-bar">
+    <div class="status-ico">
+      <span>▶</span>
+      <span>▼</span>
+    </div>
+    <input type="image" src = "images/MyClub.png" class="MyClub" onclick="movepage()"/>
+    <img src="images/createClub.png" class="CC"/>
+  </div>
+
+  <div className="mainContent">
+    <img src = "images/sample.png" class="MC"/>
+  </div>
+
 <script type="text/javascript">
   function movepage() {
     location.href = "/home.html";

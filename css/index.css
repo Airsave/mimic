@@ -1,32 +1,5 @@
 body {
-  font-family: sans-serif;
-  background-color: #172946;
-}
-#videos,
-#container {
-  padding-left: 295px;
-  padding-right: 300px;
-}
-
-#videos {
-  width: 1312px;
-  height: 495px;
-  padding-top: 94px;
-}
-
-#localVideo {
-  max-width: 646px;
-  width: 100%;
-  float: left;
-  border: 5px solid;
-  display: inline-block;
-}
-
-#remoteVideo {
-  max-width: 646px;
-  width: 100%;
-  border: 5px solid;
-  display: none;
+    padding-top: 100px;
 }
 
 .Navbar{
@@ -58,15 +31,26 @@ body {
    float:right;
 }
 
+.MyClub{
+   border: 1px solid #172946;
+}
+
+.MyClub:hover{
+   border: 1px solid;
+}
+
+.CC{
+   margin-left: 20px;
+}
+
 .left-side-bar {
     background-color: #172946;
     height: 100%;
     width: 300px;
     position: fixed;
-    left: 0px;
+    left: -275px;
     transition: left .3s;
     top: 100px;
-    border-right: 3px solid;
 }
 
 .left-side-bar > .status-ico {
@@ -90,37 +74,6 @@ body {
     display: none;
 }
 
-.HS {
-   height: 870px;
-   width: 300px;
-}
-
-.ChatBox {
-  right: 0px;
-  position: fixed;
-  padding-top: 91px;
-}
-
-.CB {
-  height: 870px;
-}
-
-.remoteVideoInChatting {
-  display: inline-block !important;
-}
-
-button {
-  margin: 0 3px 10px 0;
-  padding-left: 2px;
-  padding-right: 2px;
-  width: 99px;
-}
-
-button:last-of-type {
-  margin: 0;
-}
-
-p.borderBelow {
-  margin: 0 0 20px 0;
-  padding: 0 0 20px 0;
+.MC {
+    padding-left: 300px;
 }

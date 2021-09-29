@@ -11,7 +11,7 @@ var turnReady;
 let mediaRecorder;
 let recordedBlobs;
 const codecPreferences = document.querySelector('#codecPreferences');
-const recordButton = document.querySelector('.bg-red-500');
+const recordButton = document.querySelector('button#record');
 const audioInputSelect = document.querySelector('select#audioSource');
 const audioOutputSelect = document.querySelector('select#audioOutput');
 const videoSelect = document.querySelector('select#videoSource');
@@ -20,17 +20,17 @@ const selectors = [audioInputSelect, audioOutputSelect, videoSelect];
 audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 
 recordButton.addEventListener('click', () => {
-  if (recordButton.textContent === 'REC') {
+  if (recordButton.textContent === 'Start Recording') {
     startRecording();
   } else {
     stopRecording();
-    recordButton.textContent = 'REC';
+    recordButton.textContent = 'Start Recording';
     downloadButton.disabled = false;
     codecPreferences.disabled = false;
   }
 });
 
-const downloadButton = document.querySelector('.bg-blue-500');
+const downloadButton = document.querySelector('button#download');
 downloadButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
   const url = window.URL.createObjectURL(blob);
@@ -245,15 +245,28 @@ function changeAudioDestination() {
 function startRecording() {
   recordedBlobs = [];
   const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
-  const options = {mimeType};
+  const options = {mimeType}
 
+  recordButton.textContent = 'STOP';
+  /*
   try {
-    mediaRecorder = new MultiStreamRecorder(localStream, options);
-    mediaRecorder.addStreams(remoteStream);
+    mediaRecorder = new MultiStreamRecorder(mediastreams, options);
+    recordButton.textContent = 'recorder set';
+    mediaRecorder.addStreams(mediastreams);
   } catch (e) {
     console.error('Exception while creating MediaRecorder:', e);
     return;
   }
+   */
+  //here goes hook
+  var arrayOfStreams = [localStream, remoteStream];
+  var multiStreamRecorder = new MultiStreamRecorder(arrayOfStreams);
+  multiStreamRecorder.ondataavailable = function(blob) {
+    var blobURL = URL.createObjectURL(blob);
+    document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
+  };
+
+  recordButton.textContent = 'record complete';
 
   console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
   recordButton.textContent = 'STOP';
@@ -263,8 +276,9 @@ function startRecording() {
     console.log('Recorder stopped: ', event);
     console.log('Recorded Blobs: ', recordedBlobs);
   };
-  mediaRecorder.ondataavailable = handleDataAvailable;
-  mediaRecorder.start();
+  //mediaRecorder.ondataavailable = handleDataAvailable;
+  multiStreamRecorder.start(3000);
+  mediaRecorder.record();
   console.log('MediaRecorder started', mediaRecorder);
 }
 
@@ -318,7 +332,7 @@ audioOutputSelect.onchange = changeAudioDestination();
 videoSelect.onchange = start();
 
 //hook custom here
-
+/*
 window.setInterval(function() {
   pc.getStats(null).then(stats => {
     let statsOutput = "";
@@ -340,6 +354,8 @@ window.setInterval(function() {
     document.querySelector(".stats-box").innerHTML = statsOutput;
   });
 }, 1000);
+
+ */
 
 window.onbeforeunload = function() {
   sendMessage('bye');
@@ -441,7 +457,8 @@ function handleRemoteStreamAdded(event) {
   remoteVideo.srcObject = remoteStream;
 
   remoteVideo.classList.add("remoteVideoInChatting");
-  localVideo.classList.add("localVideoInChatting");
+
+  /*localVideo.classList.add("localVideoInChatting");*/
 }
 
 function handleRemoteStreamRemoved(event) {
@@ -456,7 +473,7 @@ function hangup() {
 
 function handleRemoteHangup() {
   remoteVideo.classList.remove("remoteVideoInChatting");
-  localVideo.classList.remove("localVideoInChatting");
+  /*localVideo.classList.remove("localVideoInChatting");*/
 	
   console.log('Session terminated.');
   stop();

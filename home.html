@@ -5,14 +5,8 @@
     <meta name="description" content="mimic">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>MIMIC</title>
-    <!--
-    <link rel="stylesheet" href="/css/main.css" />
-    -->
-    <link href=
-                  "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-          rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
 
-    <!--
     <style>
         div.select {
             display: inline-block;
@@ -23,101 +17,68 @@
             font-size: 0.7em;
         }
 
-        label {
-            width: 12em;
-            display: inline-block;
-        }
     </style>
-    -->
-    <script src="../src/App.js"></script>
-    <style>
-        #videos {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        #localVideo {
-            max-width: 100%;
-            width: 100%;
-            float:left;
-            border: 1px solid;
-        }
-
-        #remoteVideo {
-            max-width: 100%;
-            width: 100%;
-            float:left;
-            border: 1px solid;
-            display: none;
-        }
-
-        .localVideoInChatting {
-            width: 100px !important;
-            position: absolute;
-        }
-        .remoteVideoInChatting {
-            display: inline !important;
-        }
-    </style>
+    <link rel="stylesheet" href="css/main.css">
 
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-gray-800 to-gray-800">
+<body>
 
-<h1>Welcome to MIMIC</h1>
+<div class="ChatBox">
+    <img src="images/ChatBox.png" class="CB">
+</div>
+
+<div class="Navbar">
+    <img src ="images/Frame.png" class="Mascot"/>
+    <img src="images/Mimic.png" class="Logo"/>
+    <img src="images/findClub.png" class="FC"/>
+    <img src="images/findFriend.png" class="FF"/>
+</div>
+
+<div class="left-side-bar">
+    <img src="images/HomeSidebar.png" class="HS"/>
+</div>
 
 <div id="videos">
     <video id="localVideo" autoplay muted playsinline></video>
     <video id="remoteVideo" autoplay playsinline></video>
+    <br>
 </div>
-<!-- stat box not in use now
-<div class="stats_box">
-    <h2>stats goes here</h2>
-</div>
--->
 
 <div id="container">
 
     <div class="select">
-        <label for="audioSource">마이크 : </label><select id="audioSource"></select>
+        <img src="images/Mic.png">
+        <select id="audioSource"></select>
     </div>
+    <br>
 
     <div class="select">
-        <label for="audioOutput">스피커 : </label><select id="audioOutput"></select>
+        <img src="images/Headphones.png">
+        <select id="audioOutput"></select>
     </div>
+    <br>
 
     <div class="select">
-        <label for="videoSource">비디오 : </label><select id="videoSource"></select>
+        <img src="images/Vid.png"> <!-- 비디오 이미지 필요 재석이한테 하나만 만들어달라고 하셈 -->
+        <select id="videoSource"></select>
     </div>
+    <br>
 
     <div>
-        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" disabled>REC</button>
-        <button class="bg-blue-500 text-white fond-bold py-2 px-6 rounded" disabled>Download</button>
-        <!--old css buttons
         <button id="record" disabled>Start Recording</button>
         <button id="download" disabled>Download</button>
-        -->
     </div>
 
     <div>
         Recording format: <select id="codecPreferences" disabled></select>
     </div>
-
-
 </div>
+
 <!-- This file is automatically added/served when running "node index.js". -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="js/main.js"></script>
-
-<!-- replace "development.js" into "production.min.js"
-<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-
-<script src="master_button.js"></script>
-
-include JSX
-<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
 </body>
 
 </html>

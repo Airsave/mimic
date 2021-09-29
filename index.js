@@ -20,7 +20,6 @@ const options = {
 };
 
 
-
 exp_app.get('/', function(req, res) {
     fs.readFile('index.html', function (error, data) {
         fs.writehead(200, {'Content-Type': 'text/html'});
